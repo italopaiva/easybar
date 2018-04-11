@@ -1,0 +1,26 @@
+version: '3'
+services:
+  database.service:
+    tty: true
+    stdin_open: true
+    container_name: database
+    image: postgres:9.5-alpine
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    env_file:
+      - ./config/database.env
+    ports:
+      - "5433:5432"
+  api.service:
+    tty: true
+    stdin_open: true
+    container_name: api
+    build: .
+    env_file:
+      - ./config/api.env
+    ports:
+      - "80:3000"
+    volumes:
+      - ./apps/api:/app
+    depends_on:
+      - database.service
