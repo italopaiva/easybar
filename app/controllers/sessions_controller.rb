@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       session[:user_id] = @current_user.id
-      redirect_to controller: :orders, action: :new
+      redirect_to controller: :orders, action: :new, user_id: @current_user.id
     end
   end
 

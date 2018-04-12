@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root 'sessions#new'
 
-  resources :users
+  resources :users do
+    resources :orders
+  end
+
   resources :sessions
-  resources :orders
   resources :tables
 end
