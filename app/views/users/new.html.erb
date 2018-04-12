@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <%= form_for @user do |f| %>
+        <% if @user.errors.any? %>
+          <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <h2 class="text-center">Cadastre-se <br><small>Crie sua conta para realizar seus pedidos</small></h2>
+        <div class="form-group">
+          <%= f.label 'Login' %><br />
+          <%=
+            f.text_field(
+              :name,
+              class: 'form-control',
+              placeholder: 'Informe um nome para a gente te identificar'
+            )
+          %>
+        </div>
+        <div class="form-group">
+          <%= f.label 'Senha' %><br />
+          <%=
+            f.password_field(
+              :password,
+              class: 'form-control',
+              placeholder: 'Informe uma senha para realizar seus pedidos'
+            )
+          %>
+        </div>
+
+        <div class="form-group">
+          <%= link_to 'Já possui cadastro? Entre agora mesmo!', root_path %>
+        </div>
+
+        <%= f.submit "Cadastrar", class: 'btn btn-block btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
