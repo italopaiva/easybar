@@ -18,9 +18,9 @@
         <td><%= order.content %></td>
         <td><%= order.user %></td>
         <td><%= order.table %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_order_path(@user, order) %></td>
+        <td><%= link_to 'Edit', edit_user_order_path(@user, order) %></td>
+        <td><%= link_to 'Destroy', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>
