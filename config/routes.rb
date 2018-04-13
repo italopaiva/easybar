@@ -7,4 +7,8 @@ Rails.application.routes.draw do
 
   resources :sessions
   resources :tables
+
+  resources :admin do
+    get '/orders/:order_id/ready', to: 'admin#order_ready', on: :collection, as: 'order_ready'
+  end
 end

@@ -13,5 +13,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  helper_method :logged_in?
+  def is_admin?
+    return false unless logged_in?
+
+    @current_user.is_admin?
+  end
+
+  helper_method :logged_in?, :is_admin?
 end

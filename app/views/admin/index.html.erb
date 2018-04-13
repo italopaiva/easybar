@@ -1,0 +1,43 @@
+<div class="container">
+
+  <%= link_to 'Gerenciar mesas', tables_path, class: 'btn btn-lg btn-default' %>
+
+
+  <h2>Aqui estão todos os pedidos:</h2>
+
+  <br>
+  <% unless @orders.empty? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Conteúdo do pedido</th>
+          <th>Mesa</th>
+          <th>Data e hora do pedido</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.content %></td>
+            <td><%= order.table.number %></td>
+            <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
+            <td>
+              <% if order.ready? %>
+                <h4><span class="label label-lg label-success">Pedido pronto!</span></h4>
+              <% else %>
+                <%= link_to 'Marcar como pronto', order_ready_admin_index_path(order),  data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-primary' %>
+
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h4> Nenhum pedido realizado ainda. </h4>
+  <% end %>
+</div>

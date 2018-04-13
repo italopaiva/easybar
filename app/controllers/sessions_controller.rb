@@ -12,7 +12,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = 'Logado com sucesso'
-      redirect_to controller: :orders, action: :index, user_id: user.id
+
+      if user.is_admin?
+        redirect_to controller: :admin, action: :index
+      else
+        redirect_to controller: :orders, action: :index, user_id: user.id
+      end
     else
       flash[:danger] = 'Login ou senha inválidos'
       redirect_to root_url

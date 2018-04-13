@@ -24,6 +24,17 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <% if is_admin? %>
+              <li>
+                <%= link_to 'Gerenciar mesas', tables_path %>
+              </li>
+              <li>
+                <%= link_to 'Gerenciar pedidos', admin_index_path %>
+              </li>
+            <% end %>
+          </ul>
+
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in? %>
               <li>

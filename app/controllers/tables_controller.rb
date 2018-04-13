@@ -1,4 +1,5 @@
 class TablesController < ApplicationController
+  before_action :set_user, :check_admin
   before_action :set_table, only: [:show, :edit, :update, :destroy]
 
   # GET /tables
@@ -70,5 +71,18 @@ class TablesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def table_params
       params.require(:table).permit(:number)
+    end
+
+    def set_user
+      user_id = session[:user_id]
+      @user ||= User.find(user_id)
+    rescue ActiveRecord::RecordNotFound
+      session[:user_id] = nil
+
+      redirect_to root_url
+    end
+
+    def check_admin
+      redirect_to root_url unless @user.is_admin?
     end
 end
