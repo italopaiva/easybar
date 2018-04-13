@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_user
+  before_action :set_user, :check_not_admin
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -73,5 +73,9 @@ class OrdersController < ApplicationController
       params.require(:order)
             .permit(:content, :table_id)
             .merge(user_id: @user.id)
+    end
+
+    def check_not_admin
+      redirect_to root_url if @user.is_admin?
     end
 end

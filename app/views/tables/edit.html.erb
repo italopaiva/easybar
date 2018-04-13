@@ -1,6 +1,16 @@
-<h1>Editing Table</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <h2 class="text-center">Alterar dados da mesa</h2>
 
-<%= render 'form', table: @table %>
+        <%= render 'form', table: @table %>
+    </div>
+  </div>
 
-<%= link_to 'Show', @table %> |
-<%= link_to 'Back', tables_path %>
+<br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <%= link_to 'Voltar', tables_path, class: 'btn btn-lg btn-default' %>
+    </div>
+  </div>
+</div>

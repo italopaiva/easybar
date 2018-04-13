@@ -11,12 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.number_field :number, id: :table_number %>
+  <div class="form-group">
+    <%= form.label 'Número da mesa' %>
+    <%= form.number_field :number, id: :table_number, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit 'Cadastrar', class: 'btn btn-lg btn-block btn-primary' %>
 <% end %>

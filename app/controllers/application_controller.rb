@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
 
   before_action :allow_iframe_requests
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
+  protected
+
+  def not_found
+    flash[:warning] = 'Página não encontrada'
+
+    redirect_to root_url
+  end
+
   private
 
   def allow_iframe_requests
@@ -18,6 +28,7 @@ class ApplicationController < ActionController::Base
 
     @current_user.is_admin?
   end
+
 
   helper_method :logged_in?, :is_admin?
 end

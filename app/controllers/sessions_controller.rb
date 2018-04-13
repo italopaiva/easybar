@@ -2,7 +2,12 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       session[:user_id] = @current_user.id
-      redirect_to controller: :orders, action: :index, user_id: @current_user.id
+
+      if is_admin?
+        redirect_to controller: :admin, action: :index
+      else
+        redirect_to controller: :orders, action: :index, user_id: @current_user.id
+      end
     end
   end
 

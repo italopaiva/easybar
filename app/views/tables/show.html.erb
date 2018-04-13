@@ -1,9 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <h2 class="text-center">Mesa <%= @table.number %></h2>
 
-<p>
-  <strong>Number:</strong>
-  <%= @table.number %>
-</p>
+      <p>
+        <strong>Mesa:</strong>
+        <%= @table.number %>
+      </p>
 
-<%= link_to 'Edit', edit_table_path(@table) %> |
-<%= link_to 'Back', tables_path %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <%= link_to 'Alterar dados da mesa', edit_table_path(@table), class: 'btn btn-lg btn-warning' %>
+      <%= link_to 'Voltar', tables_path, class: 'btn btn-lg btn-default' %>
+    </div>
+  </div>
+</div>
