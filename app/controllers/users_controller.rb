@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = 'Obrigado por se registrar!'
-      redirect_to controller: :orders, action: :new, user_id: @user.id
+      redirect_to controller: :orders, action: :index, user_id: @user.id
     else
       render :new
     end

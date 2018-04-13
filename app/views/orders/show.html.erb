@@ -1,19 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <h2 class="text-center">Pedido <%= @order.id %></h2>
 
-<p>
-  <strong>Content:</strong>
-  <%= @order.content %>
-</p>
+      <p>
+        <strong>Mesa:</strong>
+        <%= @order.table.number %>
+      </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user %>
-</p>
+      <p>
+        <strong>Conteúdo do pedido:</strong>
+        <%= @order.content %>
+      </p>
 
-<p>
-  <strong>Table:</strong>
-  <%= @order.table %>
-</p>
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_user_order_path(@order) %> |
-<%= link_to 'Back', user_orders_path %>
+  <br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <%= link_to 'Alterar pedido', edit_user_order_path(@order), class: 'btn btn-lg btn-warning' %>
+      <%= link_to 'Voltar', user_orders_path, class: 'btn btn-lg btn-default' %>
+    </div>
+  </div>
+</div>

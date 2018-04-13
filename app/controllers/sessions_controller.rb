@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       session[:user_id] = @current_user.id
-      redirect_to controller: :orders, action: :new, user_id: @current_user.id
+      redirect_to controller: :orders, action: :index, user_id: @current_user.id
     end
   end
 
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = 'Logado com sucesso'
-      redirect_to controller: :orders, action: :new
+      redirect_to controller: :orders, action: :index, user_id: user.id
     else
       flash[:danger] = 'Login ou senha inválidos'
       redirect_to root_url

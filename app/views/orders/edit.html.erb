@@ -1,6 +1,16 @@
-<h1>Editing Order</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <h2 class="text-center">Alterar pedido</h2>
 
-<%= render 'form', order: @order, user: @user %>
+        <%= render 'form', order: @order, url: user_order_path(@user, @order) %>
+    </div>
+  </div>
 
-<%= link_to 'Show', user_order_path(@user, @order) %> |
-<%= link_to 'Back', user_orders_path(@user) %>
+<br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <%= link_to 'Voltar', user_orders_path(@user), class: 'btn btn-lg btn-default' %>
+    </div>
+  </div>
+</div>

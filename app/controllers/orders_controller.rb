@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_user
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = @user.orders.all
   end
 
   def show
@@ -11,9 +11,11 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @tables = Table.all
   end
 
   def edit
+    @tables = Table.all
   end
 
   def create
@@ -22,7 +24,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         flash[:success] = 'Pedido criado com sucesso!'
-        format.html { redirect_to user_order_path(@order, @user) }
+        format.html { redirect_to user_order_path(@user, @order) }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -35,7 +37,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update(order_params)
         flash[:success] = 'Pedido atualizado com sucesso!'
-        format.html { redirect_to @order, user_id: @user.id }
+        format.html { redirect_to user_order_path(@user, @order) }
         format.json { render :show, status: :ok, location: @order }
       else
         flash[:danger] = 'Não foi possível atualizar o seu pedido.'
@@ -55,7 +57,7 @@ class OrdersController < ApplicationController
 
   private
     def set_order
-      @order = Order.find(params[:id])
+      @order = @user.orders.find(params[:id])
     end
 
     def set_user

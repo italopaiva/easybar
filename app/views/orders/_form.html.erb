@@ -1,7 +1,7 @@
 <%= form_with(model: order, url: url, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <h2>Alguns erros ocorreram:</h2>
 
       <ul>
       <% order.errors.full_messages.each do |message| %>
@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= form.label 'Sua mesa' %>
-    <%= form.text_field :table_id, id: :order_table_id, class: 'form-control' %>
+    <%= form.collection_select :table_id, @tables, :id, :number, {}, class: 'form-control' %>
   </div>
 
   <div class="form-group">
