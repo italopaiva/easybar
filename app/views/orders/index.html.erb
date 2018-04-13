@@ -8,29 +8,41 @@
     </div>
     <br>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Conteúdo do pedido</th>
-          <th>Mesa</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @orders.each do |order| %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= order.id %></td>
-            <td><%= order.content %></td>
-            <td><%= order.table.number %></td>
-            <td><%= link_to 'Ver pedido', user_order_path(@user, order), class: 'btn btn-sm btn-default' %></td>
-            <td><%= link_to 'Alterar pedido', edit_user_order_path(@user, order), class: 'btn btn-sm btn-warning'%></td>
-            <td><%= link_to 'Apagar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
+            <th>#</th>
+            <th>Conteúdo do pedido</th>
+            <th>Mesa</th>
+            <th>Data e hora do pedido</th>
+            <th>Status</th>
+            <th colspan="3"></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.id %></td>
+              <td><%= order.content %></td>
+              <td><%= order.table.number %></td>
+              <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
+              <td>
+                <% if order.ready? %>
+                  <h4><span class="label label-lg label-success">Pedido pronto!</span></h4>
+                <% else %>
+                  <h4><span class="label label-lg label-warning">Preparando...</span></h4>
+                <% end %>
+              </td>
+              <td><%= link_to 'Ver pedido', user_order_path(@user, order), class: 'btn btn-sm btn-default' %></td>
+              <td><%= link_to 'Alterar pedido', edit_user_order_path(@user, order), class: 'btn btn-sm btn-warning'%></td>
+              <td><%= link_to 'Apagar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% else %>
     <h4> Nenhum pedido realizado ainda. Faça agora mesmo o seu pedido! </h4>
     <div>
