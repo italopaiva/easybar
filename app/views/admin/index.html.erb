@@ -12,6 +12,7 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>Cliente</th>
             <th>Conteúdo do pedido</th>
             <th>Mesa</th>
             <th>Data e hora do pedido</th>
@@ -23,6 +24,7 @@
           <% @orders.each do |order| %>
             <tr>
               <td><%= order.id %></td>
+              <td><%= order.user.name %></td>
               <td><%= order.content %></td>
               <td><%= order.table.number %></td>
               <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
