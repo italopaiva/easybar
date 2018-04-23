@@ -1,0 +1,13 @@
+<div class="list-group">
+  <% items.each do |item| %>
+    <button type="button" data-toggle="modal"
+       data-target="#create-order-modal-<%= item.id %>"
+       class="list-group-item">
+      <h4 class="list-group-item-heading" style="padding-bottom: 5px">
+        <%= item.name %>
+        <span class="pull-right"><%= item.format_price %></span>
+      </h4>
+      <p class="list-group-item-text"><%= item.description %></p>
+    </button>
+  <% end %>
+</div>

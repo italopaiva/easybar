@@ -1,58 +1,54 @@
-<% unless @items.empty? %>
-    <h2>Cardápio <br><small>Clique no produto para realizar um pedido.</small></h2>
-    <div class="list-group">
-      <% @items.each do |item| %>
-        <button type="button" data-toggle="modal"
-           data-target="#create-order-modal-<%= item.id %>"
-           class="list-group-item">
-          <h4 class="list-group-item-heading" style="padding-bottom: 5px">
-            <%= item.name %>
-            <span class="pull-right"><%= item.format_price %></span>
-          </h4>
-          <p class="list-group-item-text"><%= item.description %></p>
-        </button>
-      <% end %>
-    </div>
-  <!-- <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Preço</th>
-          <th colspan="1"></th>
-        </tr>
-      </thead>
+<h2>Cardápio <br><small>Clique no produto para realizar um pedido.</small></h2>
 
-      <tbody>
-        <% @items.each do |item| %>
-          <tr>
-            <td><%= item.id %></td>
-            <td><%= item.name %></td>
-            <td><%= item.description || '-' %></td>
-            <td><%= item.format_price %></td>
-            <td>
-              <button type="button"
-                      class="btn btn-info btn-sm"
-                      data-toggle="modal"
-                      data-target="#order-modal-<%= item.id %>">
-                Pedir
-              </button>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div> -->
-<% else %>
-  <h4> Nenhum produto cadastrado ainda. </h4>
+<br>
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <h4>
+      <a data-toggle="collapse" data-target="#drinks-list">
+        Bebidas
+      </a>
+    </h4>
+  </div>
+</div>
+
+<div id="drinks-list" class="collapse">
+  <% unless @drinks.empty? %>
+    <%= render 'order_items', items: @drinks, order: @order %>
+  <% else %>
+    <h4> Nenhuma bebida cadastrada ainda. </h4>
+  <% end %>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <h4>
+      <a data-toggle="collapse" data-target="#foods-list">
+        Comidas
+      </a>
+    </h4>
+  </div>
+</div>
+
+<div id="foods-list" class="collapse">
+  <% unless @foods.empty? %>
+    <%= render 'order_items', items: @foods, order: @order %>
+  <% else %>
+    <h4> Nenhuma comida cadastrada ainda. </h4>
+  <% end %>
+</div>
+
+<% @drinks.each do |drink| %>
+    <%= render 'order_modal', item: drink, order: @order, url: user_orders_path %>
 <% end %>
 
-<% @items.each do |item| %>
-    <%= render 'order_modal', item: item, order: @order, url: user_orders_path %>
+<% @foods.each do |food| %>
+    <%= render 'order_modal', item: food, order: @order, url: user_orders_path %>
 <% end %>
 
+<br>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-md-12">

@@ -11,7 +11,8 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @items = Item.all
+    @drinks = Item.drinks
+    @foods = Item.foods
   end
 
   def edit
