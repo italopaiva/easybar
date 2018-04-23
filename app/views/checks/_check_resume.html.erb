@@ -12,9 +12,9 @@
       <% check.orders.each do |order| %>
         <tr>
           <td><%= order.item.name %></td>
-          <td><%= order.quantity %></td>
+          <td><%= order.active ? order.quantity : 0 %></td>
           <td><%= order.item.format_price %></td>
-          <td><b><%= order.formatted_final_price %></b></td>
+          <td><b><%= order.active ? order.formatted_final_price : format_price(0) %></b></td>
         </tr>
       <% end %>
     </tbody>

@@ -50,7 +50,8 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order.destroy
+    @order.update(active: false, ready: true)
+
     respond_to do |format|
       format.html { redirect_to user_orders_url }
       format.json { head :no_content }

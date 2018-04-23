@@ -14,7 +14,7 @@ class Check < ApplicationRecord
     sum = 0
 
     orders.each do |order|
-      sum += order.final_price
+      sum += order.final_price if order.active
     end
 
     sum

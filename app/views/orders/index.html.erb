@@ -40,18 +40,24 @@
                 class="list-group-item">
           <h4 class="list-group-item-heading" style="padding-bottom: 5px">
             <%= order.item.name %>
-            <% if order.ready? %>
-              <span class="label label-lg label-success pull-right">Pedido pronto!</span>
+            <% if !order.active? %>
+              <span class="label label-lg label-danger pull-right">Cancelado</span>
             <% else %>
-              <span class="label label-lg label-info pull-right">Preparando...</span>
+              <% if order.ready? %>
+                <span class="label label-lg label-success pull-right">Pedido pronto!</span>
+              <% else %>
+                <span class="label label-lg label-info pull-right">Preparando...</span>
+              <% end %>
             <% end %>
           </h4>
           <p class="list-group-item-text"><b>Pedido feito em</b>: <%= order.ordered_at %></p>
           <p class="list-group-item-text"><b>Quantidade</b>: <%= order.quantity %></p>
           <p class="list-group-item-text"><b>Observações</b>: <%= order.content %></p>
-          <p class="list-group-item-text pull-left" style="padding-top: 20px">
-            <%= link_to 'Cancelar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %>
-          </p>
+          <% if order.active? %>
+            <p class="list-group-item-text pull-left" style="padding-top: 20px">
+              <%= link_to 'Cancelar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %>
+            </p>
+          <% end %>
         </button>
       <% end %>
     </div>
