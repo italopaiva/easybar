@@ -7,6 +7,33 @@
       <%= render 'form', check: @check, tables: @tables %>
     </div>
   </div>
+
+  <% unless @checks.empty? %>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 col-xs-12">
+
+      <h3>Contas passadas</h3>
+      <br>
+
+        <div class="list-group">
+          <% @checks.each do |check| %>
+            <div class="list-group-item">
+              <h5 class="list-group-item-heading" style="padding-bottom: 5px">
+                Conta do dia <b><%= format_date_without_time(check.created_at) %></b>
+                <span class="label label-default pull-right"><%= check.formatted_total_price %></span>
+              </h5>
+
+              <div class="list-group-item-text">
+                <%= render 'check_resume', check: check %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 

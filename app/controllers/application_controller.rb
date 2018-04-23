@@ -42,6 +42,21 @@ class ApplicationController < ActionController::Base
     @current_user.is_admin?
   end
 
+  def format_date(date)
+    date.strftime('%d/%m/%Y - %H:%Mh')
+  end
 
-  helper_method :current_user, :logged_in?, :is_admin?
+  def format_date_without_time(date)
+    date.strftime('%d/%m/%Y')
+  end
+
+  def format_price(price)
+    price_str = price.to_s
+
+    price_str = "0#{price_str}" while price_str.length < 3
+
+    'R$' + price_str[0...-2] + ',' + price_str[-2..-1]
+  end
+
+  helper_method :current_user, :logged_in?, :is_admin?, :format_date, :format_date_without_time, :format_price
 end

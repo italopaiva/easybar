@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  resources :checks
+  resources :checks do
+    get '/close', to: "checks#close", on: :member
+  end
 
   resources :sessions
   resources :tables

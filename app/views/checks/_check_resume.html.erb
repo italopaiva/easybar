@@ -1,0 +1,25 @@
+<div style="height: 250px; overflow-y: scroll;">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Qnt.</th>
+        <th>Unidade</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% check.orders.each do |order| %>
+        <tr>
+          <td><%= order.item.name %></td>
+          <td><%= order.quantity %></td>
+          <td><%= order.item.format_price %></td>
+          <td><b><%= order.formatted_final_price %></b></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+<p><h4><b>Preço total</b>: <%= check.formatted_total_price %></h4></p>

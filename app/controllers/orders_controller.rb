@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = @user.orders.all
+    @orders = @check.orders
   end
 
   def show
@@ -13,6 +13,8 @@ class OrdersController < ApplicationController
     @order = Order.new
     @drinks = Item.drinks
     @foods = Item.foods
+    @snacks = Item.snacks
+    @narguiles = Item.narguiles
   end
 
   def edit

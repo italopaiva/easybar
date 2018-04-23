@@ -4,6 +4,25 @@
 <div class="row">
   <div class="col-md-12 col-xs-12">
     <h4>
+      <a data-toggle="collapse" data-target="#narguiles-list">
+        Narguiles
+      </a>
+    </h4>
+  </div>
+</div>
+
+<div id="narguiles-list" class="collapse">
+  <% unless @narguiles.empty? %>
+    <%= render 'order_items', items: @narguiles, order: @order %>
+  <% else %>
+    <h4> Nenhum narguile cadastrado ainda. </h4>
+  <% end %>
+</div>
+
+<br>
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <h4>
       <a data-toggle="collapse" data-target="#drinks-list">
         Bebidas
       </a>
@@ -20,7 +39,25 @@
 </div>
 
 <br>
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <h4>
+      <a data-toggle="collapse" data-target="#snacks-list">
+        Petiscos
+      </a>
+    </h4>
+  </div>
+</div>
 
+<div id="snacks-list" class="collapse">
+  <% unless @snacks.empty? %>
+    <%= render 'order_items', items: @snacks, order: @order %>
+  <% else %>
+    <h4> Nenhum petisco cadastrado ainda. </h4>
+  <% end %>
+</div>
+
+<br>
 <div class="row">
   <div class="col-md-12 col-xs-12">
     <h4>
@@ -45,6 +82,14 @@
 
 <% @foods.each do |food| %>
     <%= render 'order_modal', item: food, order: @order, url: user_orders_path %>
+<% end %>
+
+<% @snacks.each do |snack| %>
+    <%= render 'order_modal', item: snack, order: @order, url: user_orders_path %>
+<% end %>
+
+<% @narguiles.each do |narguile| %>
+    <%= render 'order_modal', item: narguile, order: @order, url: user_orders_path %>
 <% end %>
 
 <br>

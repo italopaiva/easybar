@@ -1,6 +1,7 @@
 class ChecksController < ApplicationController
-  before_action :set_user, :check_not_open_check
-  before_action :set_check, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
+  before_action :check_not_open_check, except: [:close]
+  before_action :set_check, only: [:show, :edit, :update, :close]
 
   def index
     @checks = Check.all
@@ -12,6 +13,7 @@ class ChecksController < ApplicationController
   def new
     @tables = Table.all
     @check = Check.new
+    @checks = @user.checks.closed
   end
 
   def edit
@@ -47,12 +49,16 @@ class ChecksController < ApplicationController
     end
   end
 
-  def destroy
-    @check.destroy
-    respond_to do |format|
-      format.html { redirect_to checks_url, notice: 'Check was successfully destroyed.' }
-      format.json { head :no_content }
+  def close
+    @check.open = false
+
+    if @check.can_close? && @check.save
+      flash[:success] = 'Conta fechada com sucesso!'
+    else
+      flash[:danger] = 'Você ainda tem pedidos que não estão prontos. Não foi possível fechar a sua conta.'
     end
+
+    redirect_to controller: :checks, action: :new
   end
 
   private
@@ -64,7 +70,6 @@ class ChecksController < ApplicationController
     def check_not_open_check
       @check = Check.find_by!(open: true, user_id: @user.id)
 
-      flash[:success] = 'Você já tem uma conta aberta.'
       redirect_to user_orders_path(@user)
     rescue ActiveRecord::RecordNotFound
       true

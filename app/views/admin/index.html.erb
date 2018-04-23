@@ -13,8 +13,10 @@
           <tr>
             <th>#</th>
             <th>Cliente</th>
-            <th>Conteúdo do pedido</th>
             <th>Mesa</th>
+            <th>Conteúdo do pedido</th>
+            <th>Quantidade</th>
+            <th>Observações</th>
             <th>Data e hora do pedido</th>
             <th colspan="3"></th>
           </tr>
@@ -25,8 +27,10 @@
             <tr>
               <td><%= order.id %></td>
               <td><%= order.user.name %></td>
+              <td><%= order.check.table.number %></td>
+              <td><%= order.item.name %></td>
+              <td><%= order.quantity %></td>
               <td><%= order.content %></td>
-              <td><%= order.table.number %></td>
               <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
               <td>
                 <% if order.ready? %>
@@ -45,3 +49,10 @@
     <h4> Nenhum pedido realizado ainda. </h4>
   <% end %>
 </div>
+
+
+<script>
+  setTimeout(function(){
+    window.location.reload();
+  }, 30000);
+</script>

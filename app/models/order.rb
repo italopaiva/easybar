@@ -9,4 +9,12 @@ class Order < ApplicationRecord
   def ordered_at
     created_at.strftime('%d/%m/%Y - %H:%Mh')
   end
+
+  def formatted_final_price
+    format_price(final_price)
+  end
+
+  def final_price
+    quantity * item.price
+  end
 end
