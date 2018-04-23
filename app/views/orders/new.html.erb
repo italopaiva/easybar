@@ -1,16 +1,62 @@
+<% unless @items.empty? %>
+    <h2>Cardápio <br><small>Clique no produto para realizar um pedido.</small></h2>
+    <div class="list-group">
+      <% @items.each do |item| %>
+        <button type="button" data-toggle="modal"
+           data-target="#create-order-modal-<%= item.id %>"
+           class="list-group-item">
+          <h4 class="list-group-item-heading" style="padding-bottom: 5px">
+            <%= item.name %>
+            <span class="pull-right"><%= item.format_price %></span>
+          </h4>
+          <p class="list-group-item-text"><%= item.description %></p>
+        </button>
+      <% end %>
+    </div>
+  <!-- <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.name %></td>
+            <td><%= item.description || '-' %></td>
+            <td><%= item.format_price %></td>
+            <td>
+              <button type="button"
+                      class="btn btn-info btn-sm"
+                      data-toggle="modal"
+                      data-target="#order-modal-<%= item.id %>">
+                Pedir
+              </button>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div> -->
+<% else %>
+  <h4> Nenhum produto cadastrado ainda. </h4>
+<% end %>
+
+<% @items.each do |item| %>
+    <%= render 'order_modal', item: item, order: @order, url: user_orders_path %>
+<% end %>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-12">
-      <h2 class="text-center">Novo pedido</h2>
-
-      <%= render 'form', order: @order, url: user_orders_path %>
-    </div>
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-12">
-      <%= link_to 'Meus pedidos', user_orders_path, class: 'btn btn-lg btn-default' %>
+    <div class="col-md-12">
+      <%= link_to 'Meus pedidos', user_orders_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
 </div>

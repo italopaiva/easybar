@@ -10,16 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413013014) do
+ActiveRecord::Schema.define(version: 20180422220708) do
+
+  create_table "checks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "table_id", null: false
+    t.boolean "open", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table_id"], name: "index_checks_on_table_id"
+    t.index ["user_id", "open"], name: "index_checks_on_user_id_and_open", unique: true
+    t.index ["user_id"], name: "index_checks_on_user_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer "price"
+    t.string "name"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description"
+  end
+
+  create_table "menu_items", force: :cascade do |t|
+    t.integer "menu_id"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_menu_items_on_item_id"
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id"
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
 
   create_table "orders", force: :cascade do |t|
     t.string "content"
     t.integer "user_id"
-    t.integer "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ready", default: false
-    t.index ["table_id"], name: "index_orders_on_table_id"
+    t.integer "item_id"
+    t.integer "quantity", default: 1
+    t.integer "check_id"
+    t.index ["check_id"], name: "index_orders_on_check_id"
+    t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -36,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180413013014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_admin", default: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
 end

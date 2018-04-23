@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       if is_admin?
         redirect_to controller: :admin, action: :index
       else
-        redirect_to controller: :orders, action: :index, user_id: @current_user.id
+        redirect_to controller: :checks, action: :new
       end
     end
   end
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       if user.is_admin?
         redirect_to controller: :admin, action: :index
       else
-        redirect_to controller: :orders, action: :index, user_id: user.id
+        redirect_to controller: :checks, action: :new
       end
     else
       flash[:danger] = 'Login ou senha inválidos'

@@ -1,0 +1,10 @@
+<%= form_with(model: check, local: true) do |form| %>
+
+  <div class="form-group">
+    <%= form.label 'Em qual mesa você está?' %>
+    <%= form.collection_select :table_id, tables, :id, :number, {}, class: 'form-control' %>
+  </div>
+
+  <br>
+  <%= form.submit "Abrir minha conta", class: 'btn btn-lg btn-block btn-primary' %>
+<% end %>

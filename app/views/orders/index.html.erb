@@ -1,14 +1,61 @@
-<div class="container">
-  <h2>Aqui estão seus pedidos, <i><b><%= @user.name %></b></i>:</h2>
+  <h2>
+    Aqui estão seus pedidos, <i><b><%= @user.name %></b></i>.
+    <br>
+    <small>Clique no seu pedido para alterá-lo.</small>
+  </h2>
+
+  <h3>
+    Você está na mesa <i><%= @check.table.number %></i>.
+  </h3>
 
   <br>
   <% unless @orders.empty? %>
-    <div>
-      <%= link_to 'Fazer um pedido', new_user_order_path, class: 'btn btn-lg btn-primary' %>
-    </div>
     <br>
 
-    <div class="table-responsive">
+    <div class="row">
+      <div class="col-md-6 col-xs-6">
+        <%= link_to 'Fazer um pedido', new_user_order_path, class: 'btn btn-lg btn-primary' %>
+      </div>
+
+      <% unless @orders.empty? %>
+        <div class="col-md-6 col-xs-6">
+          <%= link_to 'Fechar conta', '', class: 'btn btn-lg btn-default' %>
+        </div>
+      <% end %>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="list-group">
+      <% @orders.each do |order| %>
+        <button type="button"
+                data-toggle="modal"
+                data-target="#edit-order-modal-<%= order.id %>"
+                class="list-group-item">
+          <h4 class="list-group-item-heading" style="padding-bottom: 5px">
+            <%= order.item.name %>
+            <% if order.ready? %>
+              <span class="label label-lg label-success pull-right">Pedido pronto!</span>
+            <% else %>
+              <span class="label label-lg label-info pull-right">Preparando...</span>
+            <% end %>
+          </h4>
+          <p class="list-group-item-text"><b>Pedido feito em</b>: <%= order.ordered_at %></p>
+          <p class="list-group-item-text"><b>Quantidade</b>: <%= order.quantity %></p>
+          <p class="list-group-item-text"><b>Observações</b>: <%= order.content %></p>
+          <p class="list-group-item-text pull-left" style="padding-top: 20px">
+            <%= link_to 'Cancelar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %>
+          </p>
+        </button>
+      <% end %>
+    </div>
+
+    <% @orders.each do |order| %>
+        <%= render 'update_order_modal', item: order.item, order: order, url: user_order_path(@user, order) %>
+    <% end %>
+
+    <!-- <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -26,27 +73,26 @@
             <tr>
               <td><%= order.id %></td>
               <td><%= order.content %></td>
-              <td><%= order.table.number %></td>
+              <td><%= order.check.table.number %></td>
               <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
               <td>
                 <% if order.ready? %>
                   <h4><span class="label label-lg label-success">Pedido pronto!</span></h4>
                 <% else %>
-                  <h4><span class="label label-lg label-warning">Preparando...</span></h4>
+                  <h4><span class="label label-lg label-info">Preparando...</span></h4>
                 <% end %>
               </td>
               <td><%= link_to 'Ver pedido', user_order_path(@user, order), class: 'btn btn-sm btn-default' %></td>
               <td><%= link_to 'Alterar pedido', edit_user_order_path(@user, order), class: 'btn btn-sm btn-warning'%></td>
-              <td><%= link_to 'Apagar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
+              <td><%= link_to 'Cancelar pedido', user_order_path(@user, order), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-    </div>
+    </div> -->
   <% else %>
     <h4> Nenhum pedido realizado ainda. Faça agora mesmo o seu pedido! </h4>
     <div>
       <%= link_to 'Fazer um pedido', new_user_order_path, class: 'btn btn-lg btn-primary' %>
     </div>
   <% end %>
-</div>

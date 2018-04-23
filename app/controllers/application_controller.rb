@@ -7,6 +7,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def set_user
+    user_id = session[:user_id]
+    @user ||= User.find(user_id)
+  rescue ActiveRecord::RecordNotFound
+    session[:user_id] = nil
+
+    redirect_to root_url
+  end
+
   def not_found
     flash[:warning] = 'Página não encontrada'
 
@@ -19,8 +28,12 @@ class ApplicationController < ActionController::Base
     response.headers.delete('X-Frame-Options')
   end
 
-  def logged_in?
+  def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    current_user ? true : false
   end
 
   def is_admin?
@@ -30,5 +43,5 @@ class ApplicationController < ActionController::Base
   end
 
 
-  helper_method :logged_in?, :is_admin?
+  helper_method :current_user, :logged_in?, :is_admin?
 end
