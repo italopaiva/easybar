@@ -65,9 +65,15 @@
     <% @orders.each do |order| %>
         <%= render 'update_order_modal', item: order.item, order: order, url: user_order_path(@user, order) %>
     <% end %>
-  <% else %>
+
+    <script>
+        setTimeout(function(){
+            window.location.reload();
+        }, 30000);
+    </script>
+<% else %>
     <h4> Nenhum pedido realizado ainda. Faça agora mesmo o seu pedido! </h4>
     <div>
-      <%= link_to 'Fazer um pedido', new_user_order_path, class: 'btn btn-lg btn-primary' %>
+        <%= link_to 'Fazer um pedido', new_user_order_path, class: 'btn btn-lg btn-primary' %>
     </div>
-  <% end %>
+<% end %>

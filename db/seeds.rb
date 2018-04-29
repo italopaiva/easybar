@@ -8,7 +8,7 @@
 
 require 'csv'
 
-CSV.foreach('./menu.csv') do |row|
+CSV.foreach(Rails.root.join('db', 'menu.csv')) do |row|
   item_name, type, description, price = row
 
   Item.create! name: item_name, type: type, description: description, price: price

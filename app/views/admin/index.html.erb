@@ -19,6 +19,7 @@
             <th>Quantidade</th>
             <th>Observações</th>
             <th>Data e hora do pedido</th>
+            <th>Valor</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -40,6 +41,7 @@
               <td><%= order.quantity %></td>
               <td><%= order.content %></td>
               <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
+              <td><%= order.formatted_final_price %></td>
               <td>
                 <% if order.active? %>
                   <% if order.ready? %>
