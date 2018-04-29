@@ -1,7 +1,7 @@
 class ChecksController < ApplicationController
   before_action :set_user
-  before_action :check_not_open_check, except: [:close]
-  before_action :set_check, only: [:show, :edit, :update, :close]
+  before_action :check_not_open_check, except: [:close, :remove_tax]
+  before_action :set_check, only: [:show, :edit, :update, :close, :remove_tax]
 
   def index
     @checks = Check.all
@@ -56,6 +56,18 @@ class ChecksController < ApplicationController
       flash[:success] = 'Conta fechada com sucesso!'
     else
       flash[:danger] = 'Você ainda tem pedidos que não estão prontos. Não foi possível fechar a sua conta.'
+    end
+
+    redirect_to controller: :checks, action: :new
+  end
+
+  def remove_tax
+    @check.allow_service_tax = !@check.allow_service_tax
+
+    if @check.save!
+      flash[:success] = 'Taxa removida com sucesso!'
+    else
+      flash[:danger] = 'Não foi possível remover a taxa.'
     end
 
     redirect_to controller: :checks, action: :new

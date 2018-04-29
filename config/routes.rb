@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :checks do
     get '/close', to: "checks#close", on: :member
+    get '/remove_tax', to: "checks#remove_tax", on: :member
   end
 
   resources :sessions

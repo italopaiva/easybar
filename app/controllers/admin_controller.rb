@@ -2,7 +2,9 @@ class AdminController < ApplicationController
   before_action :set_order, only: [:order_ready]
 
   def index
-    @orders = Order.joins(:check).order_for_admin
+    @orders = Order.joins(:check)
+                   .only_today
+                   .order_for_admin
   end
 
   def order_ready

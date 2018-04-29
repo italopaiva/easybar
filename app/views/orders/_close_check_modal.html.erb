@@ -32,10 +32,33 @@
         </div>
 
         <br>
-        <p><h4><b>Preço total</b>: <%= check.formatted_total_price %></h4></p>
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <h5><b>Preço total</b>: <%= check.formatted_total_price %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <h5>
+              <b>Taxa de Serviço (10%)</b>: <%= check.formatted_service_tax %>
+
+              <% if check.allow_service_tax? %>
+                <%= link_to 'x', remove_tax_check_path(check), class: 'btn btn-xs btn-danger pull-right' %>
+              <% else %>
+                <%= link_to '+', remove_tax_check_path(check), class: 'btn btn-xs btn-success pull-right' %>
+              <% end %>
+            </h5>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <h4><b>Preço final</b>: <%= check.formatted_final_price %></h4>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <%= link_to 'Fechar conta', close_check_path(check), class: 'btn btn-primary' %>
+        <%= link_to 'Fechar conta', close_check_path(check), class: 'btn btn-success' %>
 
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>

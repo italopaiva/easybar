@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   has_many :order_items
   has_many :items, through: :order_items
 
+  scope :only_today, (->() { where('orders.created_at >= ? ', Date.today) })
+
   scope :for_table, (lambda do |table_id|
     joins(:check).where(checks: { table_id: table_id })
   end)
