@@ -1,0 +1,55 @@
+<% unless @orders.empty? %>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Mesa</th>
+          <th>Conta</th>
+          <th>Conteúdo do pedido</th>
+          <th>Quantidade</th>
+          <th>Observações</th>
+          <th>Data e hora do pedido</th>
+          <th>Valor</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.check.table.number %></td>
+            <td>
+              <% if order.check.open? %>
+                <span class="label label-success">Aberta</span>
+              <% else %>
+                <span class="label label-danger">Fechada</span>
+              <% end %>
+            </td>
+            <td><%= order.item.name %></td>
+            <td><%= order.quantity %></td>
+            <td><%= order.content %></td>
+            <td><%= order.created_at.strftime('%d/%m/%Y - %H:%Mh') %></td>
+            <td><%= order.formatted_final_price %></td>
+            <td>
+              <% if order.active? %>
+                <% if order.ready? %>
+                  <h4><span class="label label-lg label-success">Pedido pronto!</span></h4>
+                <% else %>
+                  <%= link_to 'Marcar como pronto', order_ready_admin_index_path(order),  data: { confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-primary' %>
+                <% end %>
+              <% else %>
+                <h4><span class="label label-lg label-danger">Pedido cancelado</span></h4>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <h4> Nenhum pedido realizado ainda. </h4>
+<% end %>

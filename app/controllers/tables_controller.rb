@@ -7,6 +7,7 @@ class TablesController < ApplicationController
   end
 
   def show
+    @orders = Order.for_table(@table.id).order_for_admin
   end
 
   def new

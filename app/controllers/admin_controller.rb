@@ -2,9 +2,7 @@ class AdminController < ApplicationController
   before_action :set_order, only: [:order_ready]
 
   def index
-    @orders = Order.joins(:check)
-                   .order('checks.open DESC')
-                   .order(ready: :asc, active: :asc, created_at: :asc)
+    @orders = Order.joins(:check).order_for_admin
   end
 
   def order_ready
